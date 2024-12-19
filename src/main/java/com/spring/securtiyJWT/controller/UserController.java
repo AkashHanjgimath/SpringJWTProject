@@ -5,6 +5,7 @@ import com.spring.securtiyJWT.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,18 +18,29 @@ public class UserController {
 
 
     @PostConstruct
-    public void initRolesAndUser()
-    {
+    public void initRolesAndUser() {
         userService.initRolesAndUser();
 
     }
 
     @PostMapping
-    public ResponseEntity<UserTable>registerNewUser(@RequestBody UserTable user)
-    {
+    public ResponseEntity<UserTable> registerNewUser(@RequestBody UserTable user) {
         return ResponseEntity.ok(userService.registerNewUser(user));
 
     }
 
+    @GetMapping("/forAdmin")
+    public String forAdmin()
+    {
+        return "This URL is accessible only for admin";
+    }
 
+    @GetMapping("/forUser")
+    public String forUser() {
+        return "This URL is accessible only for USER";
+
+    }
 }
+
+
+
